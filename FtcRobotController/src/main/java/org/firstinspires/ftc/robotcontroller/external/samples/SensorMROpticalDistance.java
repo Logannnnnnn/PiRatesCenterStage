@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 /*
  * This is an example LinearOpMode that shows how to use
  * a Modern Robotics Optical Distance Sensor
- * It assumes that the ODS sensor is configured with a name of "sensor_ods".
+ * It assumes that the ODS sensor is co6nfigured with a name of "sensor_ods".
  *
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
