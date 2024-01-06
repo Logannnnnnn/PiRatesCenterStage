@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp
-public class centerStagePreCode extends LinearOpMode {
+public class centerCodePart1 extends LinearOpMode {
     @Override
     public void runOpMode() {
         DcMotor motorFrontLeft = hardwareMap.dcMotor.get("motorFrontLeft"); // input 3
@@ -16,7 +16,6 @@ public class centerStagePreCode extends LinearOpMode {
         DcMotor motorFrontRight = hardwareMap.dcMotor.get("motorFrontRight"); // input 1
         DcMotor motorBackRight = hardwareMap.dcMotor.get("motorBackRight"); // input 0
 
-        DcMotor motorLift = hardwareMap.dcMotor.get("motorLift"); // ex hub input 0
 
         motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -25,9 +24,10 @@ public class centerStagePreCode extends LinearOpMode {
         motorFrontRight.setZeroPowerBehavior(BRAKE);
         motorBackLeft.setZeroPowerBehavior(BRAKE);
         motorBackRight.setZeroPowerBehavior(BRAKE);
-        motorLift.setZeroPowerBehavior(BRAKE);
+
         //set motors to zero while not in use(stops robot from moving while joystick isn't pressed)
         waitForStart();
+
 
         if (isStopRequested()) return;
 
