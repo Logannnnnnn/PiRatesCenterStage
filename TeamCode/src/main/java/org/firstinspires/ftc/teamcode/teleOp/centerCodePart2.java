@@ -23,12 +23,12 @@ public class centerCodePart2 extends LinearOpMode {
         DcMotor motorDroneShooter = hardwareMap.dcMotor.get("motorDroneShooter"); // Ex2
 
         Servo servoArmClaw = hardwareMap.servo.get("servoArmClaw"); // servo 0
-        //Servo servoArmVertical = hardwareMap.servo.get("servoArmVertical"); // servo 1
+        Servo servoArmVertical = hardwareMap.servo.get("servoArmVertical"); // servo 1
         //Servo servoDroneShooter = hardwareMap.servo.get("ServoDroneShooter"); // servo 2
         //Servo servoRobotMount = hardwareMap.servo.get("servoRobotMount"); // servo 3
 
 
-        motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         motorFrontLeft.setZeroPowerBehavior(BRAKE);
@@ -58,49 +58,43 @@ public class centerCodePart2 extends LinearOpMode {
             double frontRightPower = (y - x - rx) / denominator;
             double backRightPower = (y + x - rx) / denominator;
 
-            motorFrontLeft.setPower(frontLeftPower);
-            motorBackLeft.setPower(backLeftPower);
-            motorFrontRight.setPower(frontRightPower);
-            motorBackRight.setPower(backRightPower);
+            motorFrontLeft.setPower(0.95 * frontLeftPower);
+            motorBackLeft.setPower(0.95 * backLeftPower);
+            motorFrontRight.setPower(0.95 * frontRightPower);
+            motorBackRight.setPower(0.95 * backRightPower);
 
 
-
-            /*
-            double extenderPowerOut = (gamepad2.right_trigger);
+            double extenderPowerOut = (-gamepad2.right_trigger);
             if (gamepad2.right_trigger > 0.01) {
                 motorArmExtender.setPower(extenderPowerOut);
-            }
-            else {
+            } else {
                 motorArmExtender.setPower(0);
             }
             double extenderPowerIn = (gamepad2.left_trigger);
             if (gamepad2.left_trigger > 0.01) {
                 motorArmExtender.setPower(extenderPowerIn);
-            }
-            else {
+            } else {
                 motorArmExtender.setPower(0);
             }
-            */
 
 
-            /*
-            double mountPower = gamepad2.left_stick_y;
+            double mountPower = gamepad2.right_stick_y;
             if (gamepad2.right_stick_y > 0.1 || gamepad2.right_stick_y < -0.1) {
                 motorMount.setPower(mountPower);
-            }
-            else {
+            } else {
                 motorMount.setPower(0);
             }
-            */
 
 
-            /*
+
+
             if (gamepad2.y) {
-                motorDroneShooter.setPower(1); }
+                motorDroneShooter.setPower(1.0);
+            }
             else {
                 motorDroneShooter.setPower(0);
             }
-            */
+
 
 
 
@@ -113,24 +107,23 @@ public class centerCodePart2 extends LinearOpMode {
             */
 
 
-            /*
-            if (gamepad2.dpad_up) {
-                while (gamepad2.dpad_up) {
+            if (gamepad2.left_stick_y > 0.05) {
+                while (gamepad2.left_stick_y > 0.05) {
                     double position = servoArmVertical.getPosition();
-                    servoArmVertical.setPosition(position + 0.05);
+                    servoArmVertical.setPosition(position - 0.005);
                 }
-            } else {
+            } /* else {
                 servoArmVertical.setPosition(0);
-            }
-            if (gamepad2.dpad_down) {
-                while (gamepad2.dpad_down) {
+            } */
+            if (gamepad2.left_stick_y < -0.05) {
+                while (gamepad2.left_stick_y < -0.05) {
                     double position = servoArmVertical.getPosition();
-                    servoArmVertical.setPosition(position - 0.05);
+                    servoArmVertical.setPosition(position + 0.005);
                 }
-            } else {
+            } /* else {
                 servoArmVertical.setPosition(0);
-            }
-            */
+            } */
+
 
             //s
             if (gamepad2.x) {
