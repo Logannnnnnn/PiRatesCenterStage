@@ -8,15 +8,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
+//import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
 @Autonomous
-public class centerCodeAutoPart1 extends LinearOpMode {
-
-    private final ElapsedTime runtime = new ElapsedTime();
+public class rightBottomCenterSpikeAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() {
@@ -31,7 +29,7 @@ public class centerCodeAutoPart1 extends LinearOpMode {
         DcMotor motorDroneShooter = hardwareMap.dcMotor.get("motorDroneShooter"); // Ex2
 
         Servo servoArmClaw = hardwareMap.servo.get("servoArmClaw"); // servo 0
-        Servo servoArmVertical = hardwareMap.servo.get("servoArmVertical"); // servo 1
+       // Servo servoArmVertical = hardwareMap.servo.get("servoArmVertical"); // servo 1
         //Servo servoDroneShooter = hardwareMap.servo.get("ServoDroneShooter"); // servo 2
         //Servo servoRobotMount = hardwareMap.servo.get("servoRobotMount"); // servo 3
 
@@ -58,8 +56,44 @@ public class centerCodeAutoPart1 extends LinearOpMode {
         while (opModeIsActive() && !isStopRequested() && curDistance > 12) {
 
 
+            // Move to spike
+            motorFrontLeft.setPower(1);
+            motorBackLeft.setPower(1);
+            motorFrontRight.setPower(1);
+            motorBackRight.setPower(1); // Adjust speed as needed
+            sleep(2000); // Adjust time based on distance
+
+            // Place the purple pixel on the spike line
+            servoArmClaw.setPosition(1); // Assuming 1 is the position to close the claw
+            sleep(1000); // Adjust time for the claw to close
+
+            // Turn back
+            motorFrontLeft.setPower(-1);
+            motorBackLeft.setPower(1);
+            motorFrontRight.setPower(1);
+            motorBackRight.setPower(-1); // Adjust speed as needed
+            sleep(1000); // Adjust time based on angle
+
+            // Move back
+            motorFrontLeft.setPower(1);
+            motorBackLeft.setPower(1);
+            motorFrontRight.setPower(1);
+            motorBackRight.setPower(1); // Adjust speed as needed
+            sleep(2000); // Adjust time based on distance
+
+            // Stop the robot
+            stop();
+
+            telemetry.addData("Status", "Autonomous completed");
+            telemetry.update();
         }
 
-
     }
+
 }
+
+
+
+
+
+
