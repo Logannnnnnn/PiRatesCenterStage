@@ -1,87 +1,114 @@
 package org.firstinspires.ftc.teamcode.auto;
 
-
 import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
-
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
+//import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 
 @Autonomous
 public class leftBottomCenterSpikeAuto extends LinearOpMode {
+
     @Override
     public void runOpMode() {
-        DcMotor motorFrontLeft = hardwareMap.dcMotor.get("motorFrontLeft"); // input 3
-        DcMotor motorBackLeft = hardwareMap.dcMotor.get("motorBackLeft");  // input 2
-        DcMotor motorFrontRight = hardwareMap.dcMotor.get("motorFrontRight"); // input 1
-        DcMotor motorBackRight = hardwareMap.dcMotor.get("motorBackRight"); // input 0
 
+        DcMotor motorFrontRight = hardwareMap.dcMotor.get("motorFrontRight"); // input 0
+        DcMotor motorBackRight = hardwareMap.dcMotor.get("motorBackRight"); // input 1
+        DcMotor motorFrontLeft = hardwareMap.dcMotor.get("motorFrontLeft"); // input 2
+        DcMotor motorBackLeft = hardwareMap.dcMotor.get("motorBackLeft");  // input 3
 
-        DcMotor motorArmLift = hardwareMap.dcMotor.get("motorArmLift");
-        DcMotor motorArmExtender = hardwareMap.dcMotor.get("motorArmExtender");
-
-        motorBackRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorFrontRight.setDirection(DcMotorSimple.Direction.REVERSE);
-
+        DcMotor motorArmExtender = hardwareMap.dcMotor.get("motorArmExtender"); // Ex 0
+        DcMotor motorMount = hardwareMap.dcMotor.get("motorMount"); // Ex 1
+        DcMotor motorDroneShooter = hardwareMap.dcMotor.get("motorDroneShooter"); // Ex2
 
         Servo servoArmClaw = hardwareMap.servo.get("servoArmClaw"); // servo 0
-        //Servo servoArmTilt = hardwareMap.servo.get("servoArmTilt"); // servo 5
+        // Servo servoArmVertical = hardwareMap.servo.get("servoArmVertical"); // servo 1
+        //Servo servoDroneShooter = hardwareMap.servo.get("ServoDroneShooter"); // servo 2
+        //Servo servoRobotMount = hardwareMap.servo.get("servoRobotMount"); // servo 3
 
+        DistanceSensor distanceSensor = hardwareMap.get(DistanceSensor.class, "distanceSensor");
+
+        motorBackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorFrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         motorFrontLeft.setZeroPowerBehavior(BRAKE);
         motorFrontRight.setZeroPowerBehavior(BRAKE);
         motorBackLeft.setZeroPowerBehavior(BRAKE);
         motorBackRight.setZeroPowerBehavior(BRAKE);
 
-
-        motorArmLift.setZeroPowerBehavior(BRAKE);
         motorArmExtender.setZeroPowerBehavior(BRAKE);
+        motorMount.setZeroPowerBehavior(BRAKE);
+        motorDroneShooter.setZeroPowerBehavior(BRAKE);
 
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
 
         waitForStart();
 
-        motorArmLift.setPower(0.1);
-        sleep(100);
-        motorArmLift.setZeroPowerBehavior(BRAKE);
-        motorFrontLeft.setPower(0.5);
-        motorFrontRight.setPower(0.5);
-        motorBackLeft.setPower(0.5);
-        motorBackRight.setPower(0.5);
-        sleep(500);
-        motorFrontLeft.setZeroPowerBehavior(BRAKE);
-        motorFrontRight.setZeroPowerBehavior(BRAKE);
-        motorBackLeft.setZeroPowerBehavior(BRAKE);
-        motorBackRight.setZeroPowerBehavior(BRAKE);
-        motorArmLift.setPower(-0.1);
-        sleep(100);
-        motorArmLift.setZeroPowerBehavior(BRAKE);
-        servoArmClaw.setPosition(0.6);
-        sleep(1000);
-        motorArmLift.setPower(-0.1);
-        sleep(100);
-        motorArmLift.setZeroPowerBehavior(BRAKE);
-        motorFrontLeft.setPower(-0.5);
-        motorFrontRight.setPower(0.5);
-        motorBackLeft.setPower(-0.5);
-        motorBackRight.setPower(0.5);
-        sleep(250);
-        motorFrontLeft.setZeroPowerBehavior(BRAKE);
-        motorFrontRight.setZeroPowerBehavior(BRAKE);
-        motorBackLeft.setZeroPowerBehavior(BRAKE);
-        motorBackRight.setZeroPowerBehavior(BRAKE);
-        sleep(250);
-        motorFrontRight.setPower(0.5);
-        motorBackRight.setPower(0.5);
-        motorBackLeft.setPower(0.5);
-        motorFrontLeft.setPower(0.5);
-        sleep(3000);
-        motorFrontLeft.setZeroPowerBehavior(BRAKE);
-        motorFrontRight.setZeroPowerBehavior(BRAKE);
-        motorBackLeft.setZeroPowerBehavior(BRAKE);
-        motorBackRight.setZeroPowerBehavior(BRAKE);
+        double curDistance = distanceSensor.getDistance(DistanceUnit.INCH);
+        while (opModeIsActive() && !isStopRequested() && curDistance > 12) {
+
+
+            // Move to spike
+            motorFrontLeft.setPower(1);
+            motorBackLeft.setPower(1);
+            motorFrontRight.setPower(1);
+            motorBackRight.setPower(1); // Adjust speed as needed
+            sleep(2000); // Adjust time based on distance
+
+            motorFrontLeft.setZeroPowerBehavior(BRAKE);
+            motorFrontRight.setZeroPowerBehavior(BRAKE);
+            motorBackLeft.setZeroPowerBehavior(BRAKE);
+            motorBackRight.setZeroPowerBehavior(BRAKE);
+
+            // Place the purple pixel on the spike line
+            servoArmClaw.setPosition(1); // Assuming 1 is the position to close the claw
+            sleep(1000); // Adjust time for the claw to close
+
+            // Turn back
+            motorFrontLeft.setPower(1);
+            motorBackLeft.setPower(1);
+            motorFrontRight.setPower(-1);
+            motorBackRight.setPower(-1); // Adjust speed as needed
+            sleep(1000); // Adjust time based on angle
+
+            motorFrontLeft.setZeroPowerBehavior(BRAKE);
+            motorFrontRight.setZeroPowerBehavior(BRAKE);
+            motorBackLeft.setZeroPowerBehavior(BRAKE);
+            motorBackRight.setZeroPowerBehavior(BRAKE);
+
+            // Move back
+            motorFrontLeft.setPower(1);
+            motorBackLeft.setPower(1);
+            motorFrontRight.setPower(1);
+            motorBackRight.setPower(1); // Adjust speed as needed
+            sleep(2000); // Adjust time based on distance
+
+            motorFrontLeft.setZeroPowerBehavior(BRAKE);
+            motorFrontRight.setZeroPowerBehavior(BRAKE);
+            motorBackLeft.setZeroPowerBehavior(BRAKE);
+            motorBackRight.setZeroPowerBehavior(BRAKE);
+
+            // Stop the robot
+            stop();
+
+            telemetry.addData("Status", "Autonomous completed");
+            telemetry.update();
+        }
 
     }
+
 }
+
+
+
+
+
+

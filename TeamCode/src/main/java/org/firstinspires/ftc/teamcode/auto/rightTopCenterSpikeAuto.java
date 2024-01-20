@@ -62,23 +62,26 @@ public class rightTopCenterSpikeAuto extends LinearOpMode {
             motorBackRight.setPower(1); // Adjust speed as needed
             sleep(2000); // Adjust time based on distance
 
+            motorFrontLeft.setZeroPowerBehavior(BRAKE);
+            motorFrontRight.setZeroPowerBehavior(BRAKE);
+            motorBackLeft.setZeroPowerBehavior(BRAKE);
+            motorBackRight.setZeroPowerBehavior(BRAKE);
+
             // Place the purple pixel on the spike line
             servoArmClaw.setPosition(1); // Assuming 1 is the position to close the claw
             sleep(1000); // Adjust time for the claw to close
 
-            // Turn towards the backstage
+            // Strafe towards backstage
             motorFrontLeft.setPower(1);
             motorBackLeft.setPower(-1);
             motorFrontRight.setPower(-1);
             motorBackRight.setPower(1); // Adjust speed as needed
             sleep(1000); // Adjust time based on angle
 
-            // Move to backstage
-            motorFrontLeft.setPower(1);
-            motorBackLeft.setPower(1);
-            motorFrontRight.setPower(1);
-            motorBackRight.setPower(1); // Adjust speed as needed
-            sleep(2000); // Adjust time based on distance
+            motorFrontLeft.setZeroPowerBehavior(BRAKE);
+            motorFrontRight.setZeroPowerBehavior(BRAKE);
+            motorBackLeft.setZeroPowerBehavior(BRAKE);
+            motorBackRight.setZeroPowerBehavior(BRAKE);
 
             // Stop the robot
             stop();

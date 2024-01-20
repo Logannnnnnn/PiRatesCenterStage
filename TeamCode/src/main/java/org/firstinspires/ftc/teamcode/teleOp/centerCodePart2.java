@@ -143,21 +143,7 @@ public class centerCodePart2 extends LinearOpMode {
 
 
 
-            /*
-            if (gamepad2.y) {
-                servoDroneShooter.setPosition(1); }
-            else {
-                servoDroneShooter.setPosition(0);
-            }
-
-            if (gamepad2.a) {
-                servoRobotMount.setPosition(1); }
-            else {
-                servoRobotMount.setPosition(0);
-            }
-
-
-            */
+            
         }
     }
 }

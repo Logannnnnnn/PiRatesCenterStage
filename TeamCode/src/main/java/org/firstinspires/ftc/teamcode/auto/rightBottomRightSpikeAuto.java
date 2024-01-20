@@ -63,12 +63,22 @@ public class rightBottomRightSpikeAuto extends LinearOpMode {
             motorBackRight.setPower(1); // Adjust speed as needed
             sleep(2000); // Adjust time based on distance
 
+            motorFrontLeft.setZeroPowerBehavior(BRAKE);
+            motorFrontRight.setZeroPowerBehavior(BRAKE);
+            motorBackLeft.setZeroPowerBehavior(BRAKE);
+            motorBackRight.setZeroPowerBehavior(BRAKE);
+
             // Turn towards right spike
             motorFrontLeft.setPower(1);
-            motorBackLeft.setPower(-1);
+            motorBackLeft.setPower(1);
             motorFrontRight.setPower(-1);
-            motorBackRight.setPower(1); // Adjust speed as needed
+            motorBackRight.setPower(-1); // Adjust speed as needed
             sleep(1000); // Adjust time based on angle
+
+            motorFrontLeft.setZeroPowerBehavior(BRAKE);
+            motorFrontRight.setZeroPowerBehavior(BRAKE);
+            motorBackLeft.setZeroPowerBehavior(BRAKE);
+            motorBackRight.setZeroPowerBehavior(BRAKE);
 
             // Place the purple pixel on the spike line
             servoArmClaw.setPosition(1); // Assuming 1 is the position to close the claw
@@ -76,10 +86,15 @@ public class rightBottomRightSpikeAuto extends LinearOpMode {
 
             // Turn back
             motorFrontLeft.setPower(1);
-            motorBackLeft.setPower(-1);
+            motorBackLeft.setPower(1);
             motorFrontRight.setPower(-1);
-            motorBackRight.setPower(1); // Adjust speed as needed
+            motorBackRight.setPower(-1); // Adjust speed as needed
             sleep(1000); // Adjust time based on angle
+
+            motorFrontLeft.setZeroPowerBehavior(BRAKE);
+            motorFrontRight.setZeroPowerBehavior(BRAKE);
+            motorBackLeft.setZeroPowerBehavior(BRAKE);
+            motorBackRight.setZeroPowerBehavior(BRAKE);
 
             // Move back
             motorFrontLeft.setPower(1);
@@ -87,6 +102,11 @@ public class rightBottomRightSpikeAuto extends LinearOpMode {
             motorFrontRight.setPower(1);
             motorBackRight.setPower(1); // Adjust speed as needed
             sleep(2000); // Adjust time based on distance
+
+            motorFrontLeft.setZeroPowerBehavior(BRAKE);
+            motorFrontRight.setZeroPowerBehavior(BRAKE);
+            motorBackLeft.setZeroPowerBehavior(BRAKE);
+            motorBackRight.setZeroPowerBehavior(BRAKE);
 
             // Stop the robot
             stop();

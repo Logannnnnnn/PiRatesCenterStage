@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
-public class parrotsCenterCode4Desmond extends LinearOpMode {
+public class pittPiratesCenterStage extends LinearOpMode {
     @Override
     public void runOpMode() {
         DcMotor motorFrontLeft = hardwareMap.dcMotor.get("motorFrontLeft"); // input 3
@@ -118,6 +118,8 @@ public class parrotsCenterCode4Desmond extends LinearOpMode {
                 servoArmClaw.setPosition(0.4);
             } else if (gamepad2.b) {
                 servoArmClaw.setPosition(0.6);
+            } else {
+                servoArmClaw.setPosition(0);
             }
         }
     }
